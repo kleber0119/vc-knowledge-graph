@@ -152,6 +152,20 @@ def eval_stream(model: str = DEFAULT_MODEL):
 
 
 # ---------------------------------------------------------------------------
+# Serve the PDF report
+# ---------------------------------------------------------------------------
+REPORTS_DIR = ROOT / "reports"
+
+
+@app.get("/report")
+def serve_report():
+    pdfs = list(REPORTS_DIR.glob("*.pdf"))
+    if not pdfs:
+        return JSONResponse({"error": "No PDF report found."}, status_code=404)
+    return FileResponse(str(pdfs[0]), media_type="application/pdf")
+
+
+# ---------------------------------------------------------------------------
 # Serve the React SPA
 # ---------------------------------------------------------------------------
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")

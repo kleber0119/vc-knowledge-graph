@@ -545,7 +545,7 @@ function App() {
       {/* Tabs */}
       <div className="bg-white border-b-4 border-ink">
         <div className="max-w-6xl mx-auto px-6 flex">
-          {[["ask", "Ask"], ["eval", "Evaluation"]].map(([id, label]) => (
+          {[["ask", "Ask"], ["eval", "Evaluation"], ["report", "Report"]].map(([id, label]) => (
             <button
               key={id}
               onClick={() => setTab(id)}
@@ -565,20 +565,30 @@ function App() {
       <div className="bg-primary border-b-4 border-ink py-10 px-6">
         <div className="max-w-6xl mx-auto">
           <p className="text-xs font-black text-ink/50 uppercase tracking-widest mb-1">
-            {tab === "ask" ? "Free-form query" : "Benchmark"}
+            {tab === "ask" ? "Free-form query" : tab === "eval" ? "Benchmark" : "Final Report"}
           </p>
           <h2 className="text-3xl font-black text-ink leading-tight tracking-tight">
             {tab === "ask"
               ? "Ask anything.\nGet answers from the graph."
-              : "Baseline vs. RAG.\nSee the difference."}
+              : tab === "eval"
+              ? "Baseline vs. RAG.\nSee the difference."
+              : "NLP Project 2 — Written Report"}
           </h2>
         </div>
       </div>
 
       {/* Main */}
-      <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-8">
-        {tab === "ask"  && <AskPanel  model={model} />}
-        {tab === "eval" && <EvalPanel model={model} />}
+      <main className={`flex-1 w-full ${tab === "report" ? "" : "max-w-6xl mx-auto px-6 py-8"}`}>
+        {tab === "ask"    && <AskPanel  model={model} />}
+        {tab === "eval"   && <EvalPanel model={model} />}
+        {tab === "report" && (
+          <iframe
+            src="/report"
+            title="Project Report"
+            className="w-full border-0"
+            style={{ height: "calc(100vh - 220px)" }}
+          />
+        )}
       </main>
 
       {/* Footer */}
