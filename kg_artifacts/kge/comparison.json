@@ -1,0 +1,42 @@
+[
+  {
+    "model": "TransE",
+    "MRR": 0.2449,
+    "Hits@1": 0.1504,
+    "Hits@3": 0.2913,
+    "Hits@10": 0.4155,
+    "train_time_s": 1884.4,
+    "epochs": 300,
+    "embedding_dim": 256
+  },
+  {
+    "model": "DistMult",
+    "MRR": 0.0623,
+    "Hits@1": 0.0457,
+    "Hits@3": 0.0677,
+    "Hits@10": 0.075,
+    "train_time_s": 2214.9,
+    "epochs": 300,
+    "embedding_dim": 256
+  },
+  {
+    "model": "ComplEx",
+    "MRR": 0.1853,
+    "Hits@1": 0.1276,
+    "Hits@3": 0.2046,
+    "Hits@10": 0.2934,
+    "train_time_s": 15526.7,
+    "epochs": 300,
+    "embedding_dim": 256
+  },
+  {
+    "model": "RotatE",
+    "MRR": 0.281,
+    "Hits@1": 0.2118,
+    "Hits@3": 0.3079,
+    "Hits@10": 0.4068,
+    "train_time_s": 1202.4,
+    "epochs": 70,
+    "embedding_dim": 256
+  }
+]

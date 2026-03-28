@@ -1,0 +1,108 @@
+======================================================================
+  Nearest Neighbor Analysis — RotatE Embeddings (VC Knowledge Graph)
+======================================================================
+
+Anchor: Sequoia Capital
+  URI: http://www.wikidata.org/entity/Q1852025
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      OpenAI Global                           0.6031
+  2      WhatsApp LLC                            0.5986
+  3      Redwood Robotics                        0.5924
+  4      StumbleUpon                             0.5670
+  5      Bloomberg Philanthropies                0.5667
+  6      Early Warning Services                  0.5606
+  7      Fitbit                                  0.5583
+  8      Novi Financial                          0.5568
+  9      Flutter                                 0.5481
+  10     Facebook Overseas, Inc                  0.5461
+
+Anchor: Andreessen Horowitz
+  URI: http://www.wikidata.org/entity/Q4034010
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      General Catalyst                        0.5877
+  2      Q2616400                                0.5535
+  3      Revolution Analytics                    0.5327
+  4      CNN Business                            0.4817
+  5      Jane Street Capital                     0.4688
+  6      Silicon Graphics                        0.4674
+  7      Netscape                                0.4556
+  8      The Boring Company                      0.4408
+  9      GV                                      0.4374
+  10     Gawker Media                            0.4333
+
+Anchor: Y Combinator
+  URI: http://www.wikidata.org/entity/Q2616400
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      General Catalyst                        0.5756
+  2      Andreessen Horowitz                     0.5535
+  3      Silicon Graphics                        0.5147
+  4      Loopt                                   0.5109
+  5      GV                                      0.5090
+  6      Palantir Technologies                   0.5022
+  7      OpenAI                                  0.4624
+  8      Founders Fund                           0.4575
+  9      Terra Bella                             0.4507
+  10     Fairchild Semiconductor                 0.4493
+
+Anchor: Peter Thiel
+  URI: http://www.wikidata.org/entity/Q705525
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      Max Levchin                             0.7010
+  2      Luke Nosek                              0.6511
+  3      Joe Lonsdale                            0.6212
+  4      Brian Singerman                         0.6024
+  5      Drew Houston                            0.6009
+  6      Q19560940                               0.5772
+  7      Peggy Alford                            0.5772
+  8      Sergey Brin                             0.5664
+  9      Reid Hoffman                            0.5623
+  10     Nathan Blecharczyk                      0.5611
+
+Anchor: Marc Andreessen
+  URI: http://www.wikidata.org/entity/Q62882
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      Joe Gebbia                              0.6522
+  2      James H. Clark                          0.6285
+  3      Larry Page                              0.6113
+  4      Paul Allen                              0.6108
+  5      Tom Preston-Werner                      0.5886
+  6      Mike Schroepfer                         0.5783
+  7      Sergey Brin                             0.5759
+  8      Peter Oppenheimer                       0.5675
+  9      Greg Stein                              0.5655
+  10     Nat Friedman                            0.5502
+
+Anchor: Sam Altman
+  URI: http://www.wikidata.org/entity/Q7407093
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      Ann Altman                              0.6459
+  2      Jack Altman                             0.5682
+  3      Caitlin Kalinowski                      0.5486
+  4      Noah Glass                              0.5225
+  5      Jessica Livingston                      0.5200
+  6      Greg Stein                              0.4918
+  7      Garry Tan                               0.4886
+  8      Peter Oppenheimer                       0.4827
+  9      Trevor Blackwell                        0.4778
+  10     Brian Singerman                         0.4746
+
+Anchor: Google
+  URI: http://www.wikidata.org/entity/Q95
+  Rank   Label                               Cosine Sim
+  -------------------------------------------------------
+  1      Alphabet Inc.                           0.5886
+  2      Adobe                                   0.5248
+  3      Microsoft                               0.5084
+  4      Apple Inc.                              0.5036
+  5      Yahoo                                   0.4626
+  6      Meta                                    0.4530
+  7      Cisco                                   0.4492
+  8      Sony Music                              0.4486
+  9      Amazon                                  0.4405
+  10     eBay                                    0.4020

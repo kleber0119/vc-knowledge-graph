@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VCKG — RAG Demo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:   "#FDC800",
+            secondary: "#432DD7",
+            success:   "#16A34A",
+            warning:   "#D97706",
+            danger:    "#DC2626",
+            surface:   "#FBFBF9",
+            ink:       "#1C293C",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "Menlo", "monospace"],
+          },
+          boxShadow: {
+            brutal:    "4px 4px 0px #1C293C",
+            "brutal-sm": "2px 2px 0px #1C293C",
+            "brutal-lg": "6px 6px 0px #1C293C",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: #FBFBF9;
+      color: #1C293C;
+    }
+    /* Neobrutalism button press */
+    .btn-brutal {
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+    }
+    .btn-brutal:hover:not(:disabled) {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0px #1C293C;
+    }
+    .btn-brutal:active:not(:disabled) {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #1C293C;
+    }
+    .btn-brutal:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Card lift */
+    .card-brutal {
+      border: 2px solid #1C293C;
+      box-shadow: 4px 4px 0px #1C293C;
+    }
+
+    /* Fade in */
+    .fade-in { animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* Spinner */
+    .spinner { border-top-color: #1C293C; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Syntax highlight (dark code block) */
+    .kw  { color: #FDC800; font-weight: 700; }
+    .uri { color: #7DD3FC; }
+    .ns  { color: #86EFAC; }
+    .cm  { color: #6B7280; font-style: italic; }
+
+    /* Focus ring */
+    *:focus-visible { outline: 3px solid #FDC800; outline-offset: 2px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #FBFBF9; }
+    ::-webkit-scrollbar-thumb { background: #1C293C; border-radius: 0; }
+  </style>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="min-h-screen">
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useCallback, useRef } = React;
+
+const MODEL_OPTIONS = ["gemma:2b", "qwen:0.5b"];
+
+// ── Utilities ────────────────────────────────────────────────────────────────
+
+function shortenUri(uri) {
+  for (const [ns, prefix] of [
+    ["http://vckg.org/ontology#",            "vckg:"],
+    ["http://www.wikidata.org/entity/",       "wd:"],
+    ["http://www.w3.org/2000/01/rdf-schema#", "rdfs:"],
+  ]) {
+    if (uri.startsWith(ns)) return prefix + uri.slice(ns.length);
+  }
+  return uri;
+}
+
+function highlightSparql(raw) {
+  return raw
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/\b(SELECT|WHERE|FILTER|OPTIONAL|PREFIX|FROM|LIMIT|ORDER|BY|ASC|DESC|DISTINCT|GROUP|HAVING|langMatches|lang|UNION|MINUS)\b/g,
+      '<span class="kw">$1</span>')
+    .replace(/(vckg:\w+)/g, '<span class="uri">$1</span>')
+    .replace(/(rdfs:\w+|rdf:\w+|owl:\w+|xsd:\w+)/g, '<span class="ns">$1</span>')
+    .replace(/(#[^\n]*)/g, '<span class="cm">$1</span>');
+}
+
+// ── Primitive components ─────────────────────────────────────────────────────
+
+function Badge({ label, color = "default" }) {
+  const styles = {
+    default: "bg-white text-ink border-ink",
+    success: "bg-green-400 text-ink border-ink",
+    warning: "bg-yellow-300 text-ink border-ink",
+    danger:  "bg-red-500 text-white border-ink",
+    blue:    "bg-secondary text-white border-ink",
+  };
+  return (
+    <span className={`inline-flex items-center px-2 py-0.5 text-xs font-bold border-2 ${styles[color]}`}>
+      {label}
+    </span>
+  );
+}
+
+function Spinner() {
+  return <div className="w-4 h-4 rounded-full border-2 border-gray-300 spinner shrink-0" aria-label="Loading" />;
+}
+
+function Button({ children, onClick, disabled, variant = "primary", size = "md" }) {
+  const sizes = { sm: "px-3 py-1.5 text-xs", md: "px-5 py-2.5 text-sm", lg: "px-7 py-3 text-base" };
+  const variants = {
+    primary:   "bg-primary text-ink border-2 border-ink shadow-brutal btn-brutal",
+    secondary: "bg-secondary text-white border-2 border-ink shadow-brutal btn-brutal",
+    ghost:     "bg-white text-ink border-2 border-ink shadow-brutal-sm btn-brutal",
+  };
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`inline-flex items-center gap-2 font-bold leading-none ${sizes[size]} ${variants[variant]}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+// ── SPARQL block ─────────────────────────────────────────────────────────────
+
+function SparqlBlock({ code }) {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+  return (
+    <div className="border-2 border-ink overflow-hidden" style={{ boxShadow: "3px 3px 0 #1C293C" }}>
+      <div className="flex items-center justify-between px-4 py-2 bg-ink">
+        <span className="font-mono text-xs font-bold text-primary tracking-widest uppercase">SPARQL</span>
+        <button
+          onClick={copy}
+          className="font-mono text-xs text-gray-400 hover:text-primary transition-colors px-2 py-1 border border-gray-600 hover:border-primary"
+        >
+          {copied ? "✓ copied" : "copy"}
+        </button>
+      </div>
+      <pre
+        className="font-mono text-xs leading-relaxed p-4 overflow-x-auto bg-gray-950 text-gray-100 whitespace-pre-wrap"
+        dangerouslySetInnerHTML={{ __html: highlightSparql(code) }}
+      />
+    </div>
+  );
+}
+
+// ── Result table ─────────────────────────────────────────────────────────────
+
+function ResultTable({ vars, rows }) {
+  if (!rows || rows.length === 0) return (
+    <div className="border-2 border-ink p-8 flex flex-col items-center gap-2 bg-white">
+      <span className="text-3xl font-black text-gray-200">∅</span>
+      <p className="text-sm font-semibold text-gray-400">No results returned</p>
+    </div>
+  );
+  return (
+    <div className="border-2 border-ink overflow-hidden" style={{ boxShadow: "3px 3px 0 #1C293C" }}>
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="bg-primary border-b-2 border-ink">
+            {vars.map(v => (
+              <th key={v} className="text-left py-2 px-4 text-xs font-black text-ink uppercase tracking-wider">
+                {v}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y-2 divide-ink">
+          {rows.map((row, i) => (
+            <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-surface"}>
+              {row.map((cell, j) => (
+                <td key={j} className="py-2.5 px-4 font-mono text-xs text-ink font-medium">
+                  {shortenUri(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="px-4 py-2 bg-ink border-t-2 border-ink">
+        <span className="text-xs font-bold text-gray-400 font-mono">{rows.length} row{rows.length !== 1 ? "s" : ""}</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Result card ──────────────────────────────────────────────────────────────
+
+function ResultCard({ data }) {
+  const [showSparql, setShowSparql] = useState(true);
+  const hasResults = !data.error && data.rows.length > 0;
+
+  return (
+    <div className="fade-in mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      {/* Baseline */}
+      <div className="bg-white card-brutal p-6">
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b-2 border-ink">
+          <div className="w-3 h-3 bg-gray-300 border-2 border-ink shrink-0" />
+          <span className="text-sm font-black text-ink uppercase tracking-wider">Baseline</span>
+          <Badge label="No KG" />
+        </div>
+        <p className="text-sm text-ink leading-relaxed whitespace-pre-wrap">{data.baseline}</p>
+      </div>
+
+      {/* RAG */}
+      <div className="bg-white card-brutal p-6 flex flex-col gap-4">
+        <div className="flex items-center gap-2 pb-3 border-b-2 border-ink flex-wrap">
+          <div className="w-3 h-3 bg-primary border-2 border-ink shrink-0" />
+          <span className="text-sm font-black text-ink uppercase tracking-wider">SPARQL RAG</span>
+          {hasResults             && <Badge label={`${data.rows.length} result${data.rows.length !== 1 ? "s" : ""}`} color="success" />}
+          {!hasResults && !data.error && <Badge label="No rows" color="warning" />}
+          {data.error             && <Badge label="Error" color="danger" />}
+          {data.repairs > 0      && <Badge label={`Repaired ×${data.repairs}`} color="warning" />}
+        </div>
+
+        <button
+          onClick={() => setShowSparql(s => !s)}
+          className="flex items-center gap-1.5 text-xs font-bold text-secondary hover:underline self-start"
+        >
+          {showSparql ? "▾ Hide SPARQL" : "▸ Show SPARQL"}
+        </button>
+
+        {showSparql && <SparqlBlock code={data.sparql} />}
+
+        {data.error
+          ? <div className="border-2 border-danger bg-red-50 p-4 font-mono text-xs text-danger font-bold">{data.error}</div>
+          : <ResultTable vars={data.vars} rows={data.rows} />
+        }
+      </div>
+    </div>
+  );
+}
+
+// ── Eval accordion row ───────────────────────────────────────────────────────
+
+function EvalRow({ item }) {
+  const [open, setOpen] = useState(true);
+  const hasResults = !item.error && item.rows.length > 0;
+
+  return (
+    <div className="border-2 border-ink bg-white fade-in" style={{ boxShadow: "4px 4px 0 #1C293C" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center gap-3 px-5 py-4 hover:bg-primary transition-colors text-left group"
+        aria-expanded={open}
+      >
+        <span className="font-mono text-xs font-black text-gray-400 w-6 shrink-0">Q{item.index + 1}</span>
+        <span className="flex-1 text-sm font-semibold text-ink">{item.question}</span>
+        <div className="flex items-center gap-2 shrink-0">
+          {hasResults             && <Badge label="✓" color="success" />}
+          {!hasResults && !item.error && <Badge label="∅" color="warning" />}
+          {item.error             && <Badge label="✕" color="danger" />}
+          {item.repairs > 0      && <Badge label={`×${item.repairs}`} color="warning" />}
+          <span className="font-bold text-ink text-xs ml-1">{open ? "▴" : "▾"}</span>
+        </div>
+      </button>
+
+      {open && (
+        <div className="border-t-2 border-ink p-5 grid grid-cols-1 lg:grid-cols-2 gap-6 fade-in bg-surface">
+          <div>
+            <p className="text-xs font-black text-gray-400 uppercase tracking-wider mb-3">Baseline</p>
+            <p className="text-sm text-ink leading-relaxed whitespace-pre-wrap">{item.baseline}</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <p className="text-xs font-black text-gray-400 uppercase tracking-wider">RAG result</p>
+            <SparqlBlock code={item.sparql} />
+            {item.error
+              ? <div className="border-2 border-danger bg-red-50 p-3 font-mono text-xs text-danger font-bold">{item.error}</div>
+              : <ResultTable vars={item.vars} rows={item.rows} />
+            }
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Eval panel ───────────────────────────────────────────────────────────────
+
+function EvalPanel({ model }) {
+  const [results,  setResults]  = useState([]);
+  const [current,  setCurrent]  = useState(null);
+  const [progress, setProgress] = useState(null);
+  const [done,     setDone]     = useState(false);
+  const [running,  setRunning]  = useState(false);
+
+  const runEval = useCallback(() => {
+    setResults([]); setCurrent(null); setProgress(null);
+    setDone(false); setRunning(true);
+    const es = new EventSource(`/api/eval/stream?model=${encodeURIComponent(model)}`);
+    es.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type === "progress") {
+        setCurrent(msg.question);
+        setProgress({ done: msg.index, total: msg.total });
+      } else if (msg.type === "result") {
+        setResults(prev => [...prev, msg]);
+        setProgress({ done: msg.index + 1, total: msg.total });
+        setCurrent(null);
+      } else if (msg.type === "done") {
+        setDone(true); setRunning(false); setCurrent(null); es.close();
+      }
+    };
+    es.onerror = () => { setRunning(false); es.close(); };
+  }, [model]);
+
+  const successCount = results.filter(r => !r.error && r.rows.length > 0).length;
+  const pct = progress ? Math.round((progress.done / progress.total) * 100) : 0;
+
+  return (
+    <div>
+      {/* Controls */}
+      <div className="flex items-center gap-4 flex-wrap mb-6">
+        <Button onClick={runEval} disabled={running}>
+          {running ? <><Spinner /><span>Running…</span></> : done ? "Re-run" : "Run evaluation — 7 questions"}
+        </Button>
+        {(running || done) && progress && (
+          <span className="text-sm font-bold text-ink font-mono">
+            {progress.done}/{progress.total}
+            {done && <span className="ml-3 text-success">{successCount} correct</span>}
+          </span>
+        )}
+      </div>
+
+      {/* Progress bar */}
+      {(running || (done && progress)) && (
+        <div className="mb-6">
+          <div className="w-full bg-white border-2 border-ink h-5" style={{ boxShadow: "3px 3px 0 #1C293C" }}>
+            <div
+              className="h-full bg-primary transition-all duration-500 border-r-2 border-ink"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          {current && (
+            <p className="text-xs font-mono font-semibold text-gray-500 mt-2 flex items-center gap-2">
+              <Spinner />
+              <span>"{current}"</span>
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Results */}
+      {results.length > 0 && (
+        <div className="flex flex-col gap-4">
+          {results.map((item, i) => <EvalRow key={i} item={item} />)}
+        </div>
+      )}
+
+      {/* Empty state */}
+      {!running && results.length === 0 && (
+        <div className="border-2 border-ink bg-white p-16 flex flex-col items-center gap-4" style={{ boxShadow: "4px 4px 0 #1C293C" }}>
+          <p className="text-lg font-black text-ink uppercase tracking-wide">Ready to evaluate</p>
+          <p className="text-sm text-gray-500 text-center max-w-xs">
+            Run the evaluation to compare baseline LLM answers vs. SPARQL-generation RAG across 7 questions.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Ask panel ────────────────────────────────────────────────────────────────
+
+const SUGGESTIONS = [
+  "Who are the partners at Andreessen Horowitz?",
+  "Which companies were founded by Ben Horowitz?",
+  "Which companies had an IPO exit?",
+  "What sector does Bloomberg operate in?",
+];
+
+function AskPanel({ model }) {
+  const [question, setQuestion] = useState("");
+  const [loading,  setLoading]  = useState(false);
+  const [result,   setResult]   = useState(null);
+  const textareaRef = useRef(null);
+
+  const submit = useCallback(async (q) => {
+    const text = (q ?? question).trim();
+    if (!text || loading) return;
+    setLoading(true); setResult(null);
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: text, model }),
+      });
+      setResult(await res.json());
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
+  }, [question, model, loading]);
+
+  const handleKey = (e) => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) submit();
+  };
+
+  const useSuggestion = (s) => {
+    setQuestion(s); setResult(null);
+    setTimeout(() => textareaRef.current?.focus(), 0);
+  };
+
+  return (
+    <div>
+      {/* Input card */}
+      <div className="bg-white border-2 border-ink p-6" style={{ boxShadow: "4px 4px 0 #1C293C" }}>
+        <label htmlFor="question" className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-3">
+          Ask a question
+        </label>
+        <textarea
+          id="question"
+          ref={textareaRef}
+          value={question}
+          onChange={e => setQuestion(e.target.value)}
+          onKeyDown={handleKey}
+          rows={3}
+          placeholder="e.g. Which VC firms invested in Airbnb?"
+          className="w-full border-2 border-ink px-4 py-3 text-sm text-ink placeholder-gray-300 bg-surface focus:outline-none focus:bg-white transition-colors resize-none font-mono"
+        />
+        <div className="flex items-center justify-between mt-4">
+          <span className="text-xs text-gray-400 font-mono">⌘ Enter</span>
+          <Button onClick={() => submit()} disabled={!question.trim() || loading}>
+            {loading ? <><Spinner /><span>Thinking…</span></> : "Ask →"}
+          </Button>
+        </div>
+      </div>
+
+      {/* Suggestions */}
+      {!result && !loading && (
+        <div className="mt-5">
+          <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3">Try asking</p>
+          <div className="flex flex-wrap gap-2">
+            {SUGGESTIONS.map(s => (
+              <button
+                key={s}
+                onClick={() => useSuggestion(s)}
+                className="px-4 py-2 border-2 border-ink bg-white text-sm font-semibold text-ink hover:bg-primary transition-colors btn-brutal"
+                style={{ boxShadow: "2px 2px 0 #1C293C" }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {loading && (
+        <div className="mt-8 flex items-center gap-3 text-gray-500">
+          <Spinner />
+          <span className="text-sm font-mono">Generating SPARQL and querying the knowledge graph…</span>
+        </div>
+      )}
+
+      {result && <ResultCard data={result} />}
+    </div>
+  );
+}
+
+// ── Root App ─────────────────────────────────────────────────────────────────
+
+function App() {
+  const [model, setModel] = useState("gemma:2b");
+  const [tab,   setTab]   = useState("ask");
+
+  return (
+    <div className="min-h-screen flex flex-col">
+
+      {/* Header */}
+      <header className="bg-secondary border-b-4 border-ink sticky top-0 z-20">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-primary border-2 border-ink flex items-center justify-center font-black text-sm text-ink shrink-0" style={{ boxShadow: "2px 2px 0 #000" }}>
+              VC
+            </div>
+            <div>
+              <h1 className="font-black text-white text-base leading-tight tracking-tight">
+                Venture Capital Knowledge Graph - NLP Project 2 
+              </h1>
+              <p className="text-blue-300 text-xs font-mono">By Andrea ZANIN and Antoine URSEL, DIA 6</p>
+            </div>
+          </div>
+
+          {/* Model selector */}
+          <div className="flex items-center gap-2">
+            <label htmlFor="model-select" className="text-xs font-bold text-blue-300 uppercase tracking-wider">Model</label>
+            <select
+              id="model-select"
+              value={model}
+              onChange={e => setModel(e.target.value)}
+              className="border-2 border-ink px-3 py-1.5 text-sm font-semibold text-ink bg-primary focus:outline-none cursor-pointer"
+              style={{ boxShadow: "2px 2px 0 #000" }}
+            >
+              {MODEL_OPTIONS.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          </div>
+        </div>
+      </header>
+
+      {/* Tabs */}
+      <div className="bg-white border-b-4 border-ink">
+        <div className="max-w-6xl mx-auto px-6 flex">
+          {[["ask", "Ask"], ["eval", "Evaluation"]].map(([id, label]) => (
+            <button
+              key={id}
+              onClick={() => setTab(id)}
+              className={`px-6 py-3.5 text-sm font-black uppercase tracking-wider border-r-2 border-ink transition-colors ${
+                tab === id
+                  ? "bg-primary text-ink"
+                  : "bg-white text-gray-400 hover:bg-surface hover:text-ink"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Hero */}
+      <div className="bg-primary border-b-4 border-ink py-10 px-6">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-xs font-black text-ink/50 uppercase tracking-widest mb-1">
+            {tab === "ask" ? "Free-form query" : "Benchmark"}
+          </p>
+          <h2 className="text-3xl font-black text-ink leading-tight tracking-tight">
+            {tab === "ask"
+              ? "Ask anything.\nGet answers from the graph."
+              : "Baseline vs. RAG.\nSee the difference."}
+          </h2>
+        </div>
+      </div>
+
+      {/* Main */}
+      <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-8">
+        {tab === "ask"  && <AskPanel  model={model} />}
+        {tab === "eval" && <EvalPanel model={model} />}
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t-4 border-ink bg-ink py-5">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Academic Project · 30/03/26</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

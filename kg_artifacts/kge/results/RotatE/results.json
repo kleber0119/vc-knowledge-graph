@@ -1,0 +1,10 @@
+{
+  "model": "RotatE",
+  "MRR": 0.281,
+  "Hits@1": 0.2118,
+  "Hits@3": 0.3079,
+  "Hits@10": 0.4068,
+  "train_time_s": 1202.4,
+  "epochs": 70,
+  "embedding_dim": 256
+}

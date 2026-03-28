@@ -1,0 +1,32 @@
+# ── Web crawling ───────────────────────────────────────────────────────────────
+requests>=2.31.0
+trafilatura>=1.12.0
+
+# ── NLP / NER ──────────────────────────────────────────────────────────────────
+spacy>=3.7.0
+# After installing spaCy, download the model:
+#   python -m spacy download en_core_web_lg
+
+# ── RDF / Knowledge Graph ──────────────────────────────────────────────────────
+rdflib>=7.0.0
+owlready2>=0.46
+
+# ── Knowledge Graph Embeddings ─────────────────────────────────────────────────
+pykeen>=1.10.0
+torch>=2.0.0
+
+# ── RAG pipeline ───────────────────────────────────────────────────────────────
+ollama>=0.1.0          # local LLM via Ollama
+
+# ── Utilities ──────────────────────────────────────────────────────────────────
+tqdm>=4.66.0
+pandas>=2.0.0
+numpy>=1.26.0
+scikit-learn>=1.4.0    # for t-SNE visualization
+
+# ── Visualization ──────────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# ── Optional: Gradio UI for RAG demo ──────────────────────────────────────────
+gradio>=4.0.0

@@ -1,0 +1,337 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vckg: <http://vckg.org/ontology#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+vckg:Acquisition vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q22340494"^^xsd:string ;
+    owl:sameAs wd:Q22340494 .
+
+vckg:Airbnb vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q63327"^^xsd:string ;
+    owl:sameAs wd:Q63327 .
+
+vckg:Andreessen vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q83339284"^^xsd:string ;
+    owl:sameAs wd:Q83339284 .
+
+vckg:AndreessenHorowitz vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q4034010"^^xsd:string ;
+    owl:sameAs wd:Q4034010 .
+
+vckg:Apple vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q312"^^xsd:string ;
+    skos:closeMatch wd:Q312 .
+
+vckg:BenHorowitz vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q4885859"^^xsd:string ;
+    owl:sameAs wd:Q4885859 .
+
+vckg:Biotech a vckg:Sector ;
+    rdfs:label "biotech"@en ;
+    vckg:alignmentConfidence 0.65 ;
+    vckg:wikidataId "Q7108"^^xsd:string ;
+    rdfs:comment "Locally defined entity: no Wikidata alignment (best Wikidata candidate Q7108 'biotechnology' had low confidence (0.65))."@en .
+
+vckg:Bloomberg vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q13977"^^xsd:string ;
+    skos:closeMatch wd:Q13977 .
+
+vckg:Bloombergcom vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q112610835"^^xsd:string ;
+    owl:sameAs wd:Q112610835 .
+
+vckg:Clarium vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q5127098"^^xsd:string ;
+    skos:closeMatch wd:Q5127098 .
+
+vckg:ClearviewAi vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q82969314"^^xsd:string ;
+    owl:sameAs wd:Q82969314 .
+
+vckg:Cnbc vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q1023912"^^xsd:string ;
+    owl:sameAs wd:Q1023912 .
+
+vckg:DonValentine vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q5293639"^^xsd:string ;
+    owl:sameAs wd:Q5293639 .
+
+vckg:DonaldTrump vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q22686"^^xsd:string ;
+    owl:sameAs wd:Q22686 .
+
+vckg:Ebay vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q58024"^^xsd:string ;
+    owl:sameAs wd:Q58024 .
+
+vckg:ElonMusk vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q317521"^^xsd:string ;
+    owl:sameAs wd:Q317521 .
+
+vckg:Facebook vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q355"^^xsd:string ;
+    owl:sameAs wd:Q355 .
+
+vckg:Fintech vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q16319025"^^xsd:string ;
+    owl:sameAs wd:Q16319025 .
+
+vckg:FoundersFund vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q1439864"^^xsd:string ;
+    owl:sameAs wd:Q1439864 .
+
+vckg:Ftx vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q108864780"^^xsd:string ;
+    owl:sameAs wd:Q108864780 .
+
+vckg:GarryTan vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q23417057"^^xsd:string ;
+    owl:sameAs wd:Q23417057 .
+
+vckg:Gawker vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q3759027"^^xsd:string ;
+    owl:sameAs wd:Q3759027 .
+
+vckg:GeneralCatalyst vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q5531757"^^xsd:string ;
+    owl:sameAs wd:Q5531757 .
+
+vckg:Github vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q364"^^xsd:string ;
+    owl:sameAs wd:Q364 .
+
+vckg:Google vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q95"^^xsd:string ;
+    owl:sameAs wd:Q95 .
+
+vckg:Harvard vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q13371"^^xsd:string ;
+    owl:sameAs wd:Q13371 .
+
+vckg:IPO vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q185142"^^xsd:string ;
+    owl:sameAs wd:Q185142 .
+
+vckg:JeffJohn vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q100298451"^^xsd:string ;
+    owl:sameAs wd:Q100298451 .
+
+vckg:JeffreyEpstein vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q2904131"^^xsd:string ;
+    owl:sameAs wd:Q2904131 .
+
+vckg:JimClark a vckg:Founder ;
+    rdfs:label "Jim Clark"@en ;
+    vckg:alignmentConfidence 0.45 ;
+    vckg:wikidataId "Q5609413"^^xsd:string ;
+    rdfs:comment "Locally defined entity: no Wikidata alignment (best Wikidata candidate Q5609413 'James Matthew Clark' had low confidence (0.45))."@en .
+
+vckg:LeoStrau vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q77144"^^xsd:string ;
+    owl:sameAs wd:Q77144 .
+
+vckg:MarcAndreessen vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q62882"^^xsd:string ;
+    owl:sameAs wd:Q62882 .
+
+vckg:MarkZuckerberg vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q36215"^^xsd:string ;
+    owl:sameAs wd:Q36215 .
+
+vckg:MattDanzeisen vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q136908316"^^xsd:string ;
+    owl:sameAs wd:Q136908316 .
+
+vckg:Meta vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q380"^^xsd:string ;
+    owl:sameAs wd:Q380 .
+
+vckg:Microsoft vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q2283"^^xsd:string ;
+    owl:sameAs wd:Q2283 .
+
+vckg:Mit vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q49108"^^xsd:string ;
+    owl:sameAs wd:Q49108 .
+
+vckg:Mosaic vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q381047"^^xsd:string ;
+    owl:sameAs wd:Q381047 .
+
+vckg:Netscape vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q210057"^^xsd:string ;
+    owl:sameAs wd:Q210057 .
+
+vckg:Opsware vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q3354442"^^xsd:string ;
+    owl:sameAs wd:Q3354442 .
+
+vckg:OwenThoma a vckg:Person ;
+    rdfs:label "Owen Thoma"@en ;
+    vckg:alignmentConfidence 0.65 ;
+    vckg:wikidataId "Q102139029"^^xsd:string ;
+    rdfs:comment "Locally defined entity: no Wikidata alignment (best Wikidata candidate Q102139029 'Owen Thomas' had low confidence (0.65))."@en .
+
+vckg:Palantir vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q2047336"^^xsd:string ;
+    owl:sameAs wd:Q2047336 .
+
+vckg:PaulGraham vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q92650"^^xsd:string ;
+    owl:sameAs wd:Q92650 .
+
+vckg:PaulRyan vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q203966"^^xsd:string ;
+    owl:sameAs wd:Q203966 .
+
+vckg:Paypal vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q483959"^^xsd:string ;
+    owl:sameAs wd:Q483959 .
+
+vckg:PeterThiel vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q705525"^^xsd:string ;
+    owl:sameAs wd:Q705525 .
+
+vckg:Quantumsystem a vckg:Company ;
+    rdfs:label "Quantum-System"@en ;
+    vckg:alignmentConfidence 0.45 ;
+    vckg:wikidataId "Q21193136"^^xsd:string ;
+    rdfs:comment "Locally defined entity: no Wikidata alignment (best Wikidata candidate Q21193136 'quantum system' had low confidence (0.45))."@en .
+
+vckg:ReneGirard vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q129228"^^xsd:string ;
+    owl:sameAs wd:Q129228 .
+
+vckg:RonPaul vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q15257"^^xsd:string ;
+    owl:sameAs wd:Q15257 .
+
+vckg:RossDouthat vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q7369293"^^xsd:string ;
+    owl:sameAs wd:Q7369293 .
+
+vckg:SamAltman vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q7407093"^^xsd:string ;
+    owl:sameAs wd:Q7407093 .
+
+vckg:SamBankmanfried vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q106543540"^^xsd:string ;
+    owl:sameAs wd:Q106543540 .
+
+vckg:SeedRound vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q110286097"^^xsd:string ;
+    owl:sameAs wd:Q110286097 .
+
+vckg:SequoiaCapital vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q1852025"^^xsd:string ;
+    owl:sameAs wd:Q1852025 .
+
+vckg:SeriesA vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q17142258"^^xsd:string ;
+    skos:closeMatch wd:Q17142258 .
+
+vckg:SeriesB vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q114713368"^^xsd:string ;
+    skos:closeMatch wd:Q114713368 .
+
+vckg:SeriesC vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q114713371"^^xsd:string ;
+    skos:closeMatch wd:Q114713371 .
+
+vckg:SeriesD vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q122687742"^^xsd:string ;
+    skos:closeMatch wd:Q122687742 .
+
+vckg:Skype vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q40984"^^xsd:string ;
+    owl:sameAs wd:Q40984 .
+
+vckg:StanfordUniversity vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q41506"^^xsd:string ;
+    owl:sameAs wd:Q41506 .
+
+vckg:Techcrunch vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q1022366"^^xsd:string ;
+    owl:sameAs wd:Q1022366 .
+
+vckg:TheNewYorkTime vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q9684"^^xsd:string ;
+    owl:sameAs wd:Q9684 .
+
+vckg:TheThielFellowship a vckg:NonProfit ;
+    rdfs:label "the Thiel Fellowship"@en ;
+    rdfs:comment "Locally defined entity: no Wikidata alignment (no Wikidata candidates returned)."@en .
+
+vckg:TheThielFoundation vckg:alignmentConfidence 0.8 ;
+    vckg:wikidataId "Q27977928"^^xsd:string ;
+    skos:closeMatch wd:Q27977928 .
+
+vckg:TheWallStreetJournal vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q164746"^^xsd:string ;
+    owl:sameAs wd:Q164746 .
+
+vckg:TheWashingtonPost vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q166032"^^xsd:string ;
+    owl:sameAs wd:Q166032 .
+
+vckg:Twitter vckg:alignmentConfidence 1.0 ;
+    vckg:wikidataId "Q918"^^xsd:string ;
+    owl:sameAs wd:Q918 .
+
+vckg:YCombinator vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q2616400"^^xsd:string ;
+    owl:sameAs wd:Q2616400 .
+
+vckg:Yahoo vckg:alignmentConfidence 0.85 ;
+    vckg:wikidataId "Q37093"^^xsd:string ;
+    owl:sameAs wd:Q37093 .
+
+vckg:acquiredBy a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P1642 after reviewing SPARQL candidates ['P1642']. Support: confirmed by label search."@en ;
+    skos:closeMatch wdt:P1642 .
+
+vckg:ceoOf a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P169 after reviewing SPARQL candidates ['P101', 'P169']. Support: confirmed by label search."@en ;
+    owl:equivalentProperty wdt:P169 .
+
+vckg:foundedBy a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P112 after reviewing SPARQL candidates ['P112']. Support: confirmed by triple validation."@en ;
+    owl:equivalentProperty wdt:P112 .
+
+vckg:founderOf a owl:ObjectProperty ;
+    rdfs:comment "Local-only property — no Wikidata equivalent exists."@en .
+
+vckg:fundedBy a owl:ObjectProperty ;
+    rdfs:comment "Local-only property — no Wikidata equivalent exists."@en .
+
+vckg:hadExit a owl:ObjectProperty ;
+    rdfs:comment "Local-only property — no Wikidata equivalent exists."@en .
+
+vckg:hasFundingRound a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P8324 after reviewing SPARQL candidates ['P11814']. Support: WARNING — not found in label search or triple validation."@en ;
+    skos:closeMatch wdt:P8324 .
+
+vckg:headquarteredIn a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P159 after reviewing SPARQL candidates ['P159']. Support: confirmed by label search."@en ;
+    skos:closeMatch wdt:P159 .
+
+vckg:investedIn a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P1344 after reviewing SPARQL candidates []. Support: WARNING — not found in label search or triple validation."@en ;
+    skos:closeMatch wdt:P1344 .
+
+vckg:operatesIn a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P452 after reviewing SPARQL candidates ['P12601', 'P13796', 'P14017', 'P452', 'P8856']. Support: confirmed by label search."@en ;
+    owl:equivalentProperty wdt:P452 .
+
+vckg:partnerAt a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P108 after reviewing SPARQL candidates ['P108', 'P1297']. Support: confirmed by triple validation."@en ;
+    skos:closeMatch wdt:P108 .
+
+vckg:worksAt a owl:ObjectProperty ;
+    rdfs:comment "Manually aligned to wdt:P108 after reviewing SPARQL candidates ['P108', 'P1297']. Support: confirmed by label search."@en ;
+    owl:equivalentProperty wdt:P108 .
+

@@ -1,0 +1,10 @@
+{
+  "model": "ComplEx",
+  "MRR": 0.1853,
+  "Hits@1": 0.1276,
+  "Hits@3": 0.2046,
+  "Hits@10": 0.2934,
+  "train_time_s": 15526.7,
+  "epochs": 300,
+  "embedding_dim": 256
+}

@@ -1,0 +1,94 @@
+=== KGE Preprocessing Statistics ===
+Raw lines read               :     90,433
+
+-- Removed (predicate filters) --
+  Blank nodes / non-URI      :          0
+  Literal predicates         :     15,774
+  Hub predicates (P21, P31)  :      8,540
+  Schema/meta predicates     :        143
+  Literal objects            :        163
+  Malformed triples          :          0
+  Duplicates                 :          0
+  After predicate filtering  :     65,813
+
+-- Removed (structural fixes) --
+  Low-degree entity pruning  :     13,768
+  Relation cap               :          0
+
+-- Retained --
+  Clean triples              :     52,045
+  Unique entities            :     11,496
+  Unique relations           :         51
+  Median entity degree       :          5
+  Avg entity degree          :        9.1
+  Singleton entities         :       0.1%  (target: <5%)
+
+-- Split (80/10/10) --
+  train.txt                  :     41,913  (80.5%)
+  valid.txt                  :      5,078  (9.8%)
+  test.txt                   :      5,054  (9.7%)
+  OOV triples in valid       :          0  (must be 0)
+  OOV triples in test        :          0  (must be 0)
+  Random seed                : 42
+
+-- Output files --
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/train.txt
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/valid.txt
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/test.txt
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/train.tsv
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/entities.tsv
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/relations.tsv
+  /Users/andreakzanin/vc-knowledge-graph/kg_artifacts/kge/preprocessing_stats.txt
+
+-- Relation distribution in train (all) --
+  P1344                             6,723
+  P106                              6,696
+  P108                              6,303
+  P69                               4,172
+  P27                               2,687
+  P166                              2,667
+  P463                              2,211
+  P31                               1,606
+  P101                              1,333
+  P19                               1,061
+  P17                                 996
+  P127                                875
+  P39                                 453
+  P112                                447
+  P131                                322
+  P1830                               316
+  P355                                310
+  P159                                296
+  P527                                245
+  P452                                226
+  P749                                211
+  P8324                               204
+  P361                                188
+  P3373                               175
+  P1454                               138
+  P1056                               137
+  P279                                111
+  P150                                108
+  P276                                101
+  P3320                                90
+  P737                                 77
+  P40                                  71
+  P22                                  50
+  P414                                 43
+  P169                                 41
+  P25                                  40
+  P26                                  31
+  P488                                 26
+  P2541                                25
+  P1365                                23
+  P1037                                18
+  P1366                                14
+  P199                                 12
+  ontology#investedIn                  11
+  ontology#hadExit                      5
+  ontology#foundedBy                    4
+  ontology#hasFundingRound              4
+  ontology#operatesIn                   4
+  P6                                    3
+  ontology#partnerAt                    2
+  core#closeMatch                       1

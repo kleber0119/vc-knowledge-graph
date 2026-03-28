@@ -1,0 +1,10 @@
+{
+  "model": "TransE",
+  "MRR": 0.2449,
+  "Hits@1": 0.1504,
+  "Hits@3": 0.2913,
+  "Hits@10": 0.4155,
+  "train_time_s": 1884.4,
+  "epochs": 300,
+  "embedding_dim": 256
+}

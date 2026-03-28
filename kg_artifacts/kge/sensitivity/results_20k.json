@@ -1,0 +1,12 @@
+{
+  "size_label": "20k",
+  "num_triples": 20000,
+  "num_train": 16779,
+  "num_entities": 9862,
+  "num_relations": 50,
+  "MRR": 0.0912,
+  "Hits@1": 0.051,
+  "Hits@3": 0.1008,
+  "Hits@10": 0.1745,
+  "train_time_s": 464.7
+}

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Data (large files — provide samples + download link instead)
+data/raw/
+data/cleaned/
+data/ner/
+# Keep samples
+!data/samples/
+
+# KGE datasets (large)
+data/kge/train.txt
+data/kge/valid.txt
+data/kge/test.txt
+
+# Models (too large for git)
+*.pt
+*.bin
+*.pkl
+models/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Claude Code & agent tooling
+.claude/
+.agents/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Reports (add final PDF manually)
+reports/*.pdf

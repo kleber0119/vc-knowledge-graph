@@ -1,0 +1,261 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vckg: <http://vckg.org/ontology#> .
+
+<http://vckg.org/graph> a owl:Ontology ;
+    owl:imports <http://vckg.org/ontology> .
+
+# ── VC Firms ───────────────────────────────────────────────────────────────────
+
+vckg:AndreessenHorowitz a vckg:VCFirm ;
+    rdfs:label "Andreessen Horowitz"@en ;
+    vckg:headquarteredIn "Menlo Park"@en,
+        "California"@en ;
+    vckg:investedIn vckg:Airbnb,
+        vckg:Facebook,
+        vckg:Github,
+        vckg:Microsoft,
+        vckg:Netscape,
+        vckg:Opsware,
+        vckg:Skype,
+        vckg:Twitter ;
+    vckg:operatesIn vckg:Biotech .
+
+vckg:FoundersFund a vckg:VCFirm ;
+    rdfs:label "Founders Fund"@en ;
+    vckg:headquarteredIn "San Francisco"@en ;
+    vckg:investedIn vckg:Airbnb,
+        vckg:Facebook .
+
+vckg:GeneralCatalyst a vckg:VCFirm ;
+    rdfs:label "General Catalyst"@en .
+
+vckg:SequoiaCapital a vckg:VCFirm ;
+    rdfs:label "Sequoia Capital"@en,
+        "Sequoia"@en ;
+    vckg:foundedBy vckg:DonValentine ;
+    vckg:headquarteredIn "Menlo Park"@en,
+        "California"@en .
+
+vckg:YCombinator a vckg:VCFirm ;
+    rdfs:label "Y Combinator"@en ;
+    vckg:foundedBy vckg:PaulGraham ;
+    vckg:headquarteredIn "Mountain View"@en,
+        "California"@en ;
+    vckg:investedIn vckg:Airbnb .
+
+# ── Companies ─────────────────────────────────────────────────────────────────
+
+vckg:Airbnb a vckg:Company ;
+    rdfs:label "Airbnb"@en .
+
+vckg:Apple a vckg:Company ;
+    rdfs:label "Apple"@en .
+
+vckg:Bloomberg a vckg:Company ;
+    rdfs:label "Bloomberg"@en ;
+    vckg:operatesIn vckg:Fintech .
+
+vckg:Bloombergcom a vckg:Company ;
+    rdfs:label "Bloomberg.com"@en ;
+    vckg:operatesIn vckg:Fintech .
+
+vckg:Clarium a vckg:Company ;
+    rdfs:label "Clarium"@en ;
+    vckg:headquarteredIn "San Francisco"@en .
+
+vckg:ClearviewAi a vckg:Company ;
+    rdfs:label "Clearview AI"@en .
+
+vckg:Cnbc a vckg:Company ;
+    rdfs:label "CNBC"@en .
+
+vckg:Ebay a vckg:Company ;
+    rdfs:label "eBay"@en .
+
+vckg:Facebook a vckg:Company ;
+    rdfs:label "Facebook"@en ;
+    vckg:hadExit vckg:IPO ;
+    vckg:hasFundingRound vckg:SeriesD .
+
+vckg:Ftx a vckg:Company ;
+    rdfs:label "FTX"@en .
+
+vckg:Gawker a vckg:Company ;
+    rdfs:label "Gawker"@en .
+
+vckg:Github a vckg:Company ;
+    rdfs:label "GitHub"@en ;
+    vckg:hadExit vckg:Acquisition .
+
+vckg:Google a vckg:Company ;
+    rdfs:label "Google"@en ;
+    vckg:hasFundingRound vckg:SeedRound .
+
+vckg:Meta a vckg:Company ;
+    rdfs:label "Meta"@en .
+
+vckg:Microsoft a vckg:Company ;
+    rdfs:label "Microsoft"@en ;
+    vckg:hasFundingRound vckg:SeriesA .
+
+vckg:Mosaic a vckg:Company ;
+    rdfs:label "Mosaic"@en .
+
+vckg:Netscape a vckg:Company ;
+    rdfs:label "Netscape"@en ;
+    vckg:foundedBy vckg:BenHorowitz ;
+    vckg:hadExit vckg:IPO .
+
+vckg:Opsware a vckg:Company ;
+    rdfs:label "Opsware"@en ;
+    vckg:foundedBy vckg:BenHorowitz .
+
+vckg:Palantir a vckg:Company ;
+    rdfs:label "Palantir"@en ;
+    vckg:hadExit vckg:IPO ;
+    vckg:headquarteredIn "San Francisco"@en .
+
+vckg:Paypal a vckg:Company ;
+    rdfs:label "PayPal"@en ;
+    vckg:headquarteredIn "San Jose"@en .
+
+vckg:Skype a vckg:Company ;
+    rdfs:label "Skype"@en ;
+    vckg:hasFundingRound vckg:SeriesA .
+
+vckg:SriLankaGuardian a vckg:Company ;
+    rdfs:label "Sri Lanka Guardian"@en .
+
+vckg:Techcrunch a vckg:Company ;
+    rdfs:label "TechCrunch"@en ;
+    vckg:operatesIn vckg:Fintech .
+
+vckg:TheNewYorkTime a vckg:Company ;
+    rdfs:label "The New York Times"@en .
+
+vckg:TheWallStreetJournal a vckg:Company ;
+    rdfs:label "The Wall Street Journal"@en .
+
+vckg:TheWashingtonPost a vckg:Company ;
+    rdfs:label "The Washington Post"@en .
+
+vckg:Twitter a vckg:Company ;
+    rdfs:label "Twitter"@en ;
+    vckg:hadExit vckg:Acquisition .
+
+vckg:Yahoo a vckg:Company ;
+    rdfs:label "Yahoo"@en .
+
+# ── Organisations (not companies) ─────────────────────────────────────────────
+
+vckg:StanfordUniversity a vckg:Organization ;
+    rdfs:label "Stanford University"@en,
+        "Stanford"@en .
+
+vckg:Harvard a vckg:Organization ;
+    rdfs:label "Harvard"@en .
+
+vckg:Mit a vckg:Organization ;
+    rdfs:label "MIT"@en .
+
+# ── Persons ───────────────────────────────────────────────────────────────────
+
+vckg:BenHorowitz a vckg:Person ;
+    rdfs:label "Ben Horowitz"@en ;
+    vckg:partnerAt vckg:AndreessenHorowitz .
+
+vckg:DonValentine a vckg:Person ;
+    rdfs:label "Don Valentine"@en .
+
+vckg:DonaldTrump a vckg:Person ;
+    rdfs:label "Donald Trump"@en .
+
+vckg:ElonMusk a vckg:Person ;
+    rdfs:label "Elon Musk"@en .
+
+vckg:GarryTan a vckg:Person ;
+    rdfs:label "Garry Tan"@en .
+
+vckg:JeffJohn a vckg:Person ;
+    rdfs:label "Jeff John"@en .
+
+vckg:JeffreyEpstein a vckg:Person ;
+    rdfs:label "Jeffrey Epstein"@en .
+
+vckg:JimClark a vckg:Person ;
+    rdfs:label "Jim Clark"@en .
+
+vckg:LeoStrau a vckg:Person ;
+    rdfs:label "Leo Strauss"@en .
+
+vckg:MarcAndreessen a vckg:Person ;
+    rdfs:label "Marc Andreessen"@en ;
+    vckg:partnerAt vckg:AndreessenHorowitz .
+
+vckg:MarkZuckerberg a vckg:Person ;
+    rdfs:label "Mark Zuckerberg"@en .
+
+vckg:MattDanzeisen a vckg:Person ;
+    rdfs:label "Matt Danzeisen"@en .
+
+vckg:OwenThoma a vckg:Person ;
+    rdfs:label "Owen Thomas"@en .
+
+vckg:PaulGraham a vckg:Person ;
+    rdfs:label "Paul Graham"@en .
+
+vckg:PaulRyan a vckg:Person ;
+    rdfs:label "Paul Ryan"@en .
+
+vckg:PeterThiel a vckg:Person ;
+    rdfs:label "Peter Thiel"@en .
+
+vckg:ReneGirard a vckg:Person ;
+    rdfs:label "René Girard"@en .
+
+vckg:RonPaul a vckg:Person ;
+    rdfs:label "Ron Paul"@en .
+
+vckg:RossDouthat a vckg:Person ;
+    rdfs:label "Ross Douthat"@en .
+
+vckg:SamAltman a vckg:Person ;
+    rdfs:label "Sam Altman"@en .
+
+vckg:SamBankmanfried a vckg:Person ;
+    rdfs:label "Sam Bankman-Fried"@en .
+
+# ── Sectors ───────────────────────────────────────────────────────────────────
+
+vckg:Biotech a vckg:Sector ;
+    rdfs:label "biotech"@en .
+
+vckg:Fintech a vckg:Sector ;
+    rdfs:label "fintech"@en .
+
+# ── Funding Rounds ────────────────────────────────────────────────────────────
+
+vckg:SeedRound a vckg:FundingRound ;
+    rdfs:label "seed round"@en .
+
+vckg:SeriesA a vckg:FundingRound ;
+    rdfs:label "Series A"@en .
+
+vckg:SeriesB a vckg:FundingRound ;
+    rdfs:label "Series B"@en .
+
+vckg:SeriesC a vckg:FundingRound ;
+    rdfs:label "Series C"@en .
+
+vckg:SeriesD a vckg:FundingRound ;
+    rdfs:label "Series D"@en .
+
+# ── Exit Events ───────────────────────────────────────────────────────────────
+
+vckg:Acquisition a vckg:ExitEvent ;
+    rdfs:label "acquisition"@en .
+
+vckg:IPO a vckg:ExitEvent ;
+    rdfs:label "IPO"@en,
+        "initial public offering"@en .

@@ -1,0 +1,273 @@
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix vckg:   <http://vckg.org/ontology#> .
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Ontology declaration
+# ═══════════════════════════════════════════════════════════════════════════════
+
+<http://vckg.org/ontology>
+    a owl:Ontology ;
+    rdfs:label "VC Knowledge Graph Ontology" ;
+    rdfs:comment "Ontology for the Silicon Valley venture capital domain. Covers VC firms, investors, portfolio companies, funding rounds, sectors, and exit events." .
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Classes
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Top-level ──────────────────────────────────────────────────────────────────
+
+vckg:Organization
+    a owl:Class ;
+    rdfs:label "Organization" ;
+    rdfs:comment "Any organisation — parent class for VCFirm and Company." .
+
+vckg:Person
+    a owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:comment "A human individual — investor, founder, or executive." .
+
+# ── Organization subclasses ────────────────────────────────────────────────────
+
+vckg:VCFirm
+    a owl:Class ;
+    rdfs:subClassOf vckg:Organization ;
+    rdfs:label "Venture Capital Firm" ;
+    rdfs:comment "A firm that invests in early-stage companies in exchange for equity." .
+
+vckg:Company
+    a owl:Class ;
+    rdfs:subClassOf vckg:Organization ;
+    rdfs:label "Company" ;
+    rdfs:comment "A for-profit company, typically a portfolio company or tech startup." .
+
+vckg:Startup
+    a owl:Class ;
+    rdfs:subClassOf vckg:Company ;
+    rdfs:label "Startup" ;
+    rdfs:comment "An early-stage, high-growth company, usually VC-backed." .
+
+# ── Person subclasses ──────────────────────────────────────────────────────────
+
+vckg:Investor
+    a owl:Class ;
+    rdfs:subClassOf vckg:Person ;
+    rdfs:label "Investor" ;
+    rdfs:comment "A person who provides capital to companies, typically as a VC partner or angel." .
+
+vckg:Founder
+    a owl:Class ;
+    rdfs:subClassOf vckg:Person ;
+    rdfs:label "Founder" ;
+    rdfs:comment "A person who founded one or more companies." .
+
+# Note: a person can be both Investor and Founder (e.g. Peter Thiel)
+
+vckg:PublicFigure
+    a owl:Class ;
+    rdfs:subClassOf vckg:Person ;
+    rdfs:label "Public Figure" ;
+    rdfs:comment "A person of public prominence not primarily known as an investor or founder — e.g. politicians, philosophers, journalists." .
+
+# ── Organization subclasses ────────────────────────────────────────────────────
+
+vckg:MediaOutlet
+    a owl:Class ;
+    rdfs:subClassOf vckg:Company ;
+    rdfs:label "Media Outlet" ;
+    rdfs:comment "A company whose primary activity is publishing or broadcasting news and media." .
+
+vckg:NonProfit
+    a owl:Class ;
+    rdfs:subClassOf vckg:Organization ;
+    rdfs:label "Non-Profit Organization" ;
+    rdfs:comment "An organization that operates for purposes other than profit — foundations, fellowships, research institutes." .
+
+# ── Domain concepts ────────────────────────────────────────────────────────────
+
+vckg:FundingRound
+    a owl:Class ;
+    rdfs:label "Funding Round" ;
+    rdfs:comment "A discrete investment event (Seed, Series A, B, C, …)." .
+
+vckg:Sector
+    a owl:Class ;
+    rdfs:label "Sector" ;
+    rdfs:comment "An industry vertical or technology domain (SaaS, FinTech, AI/ML, …)." .
+
+vckg:ExitEvent
+    a owl:Class ;
+    rdfs:label "Exit Event" ;
+    rdfs:comment "A liquidity event for investors — IPO, acquisition, or merger." .
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Object Properties
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Investment relationships ───────────────────────────────────────────────────
+
+vckg:investedIn
+    a owl:ObjectProperty ;
+    rdfs:label "invested in" ;
+    rdfs:comment "A VC firm invested in a company." ;
+    rdfs:domain vckg:VCFirm ;
+    rdfs:range  vckg:Company .
+
+vckg:fundedBy
+    a owl:ObjectProperty ;
+    rdfs:label "funded by" ;
+    rdfs:comment "A company received investment from a VC firm." ;
+    rdfs:domain vckg:Company ;
+    rdfs:range  vckg:VCFirm ;
+    owl:inverseOf vckg:investedIn .
+
+vckg:hasFundingRound
+    a owl:ObjectProperty ;
+    rdfs:label "has funding round" ;
+    rdfs:comment "A company raised a particular type of funding round." ;
+    rdfs:domain vckg:Company ;
+    rdfs:range  vckg:FundingRound .
+
+vckg:leadInvestor
+    a owl:ObjectProperty ;
+    rdfs:label "lead investor" ;
+    rdfs:comment "The VC firm that led a funding round." ;
+    rdfs:domain vckg:FundingRound ;
+    rdfs:range  vckg:VCFirm .
+
+# ── Person–Organisation relationships ─────────────────────────────────────────
+
+vckg:foundedBy
+    a owl:ObjectProperty ;
+    rdfs:label "founded by" ;
+    rdfs:comment "A company was founded by a person." ;
+    rdfs:domain vckg:Company ;
+    rdfs:range  vckg:Person .
+
+vckg:founderOf
+    a owl:ObjectProperty ;
+    rdfs:label "founder of" ;
+    rdfs:comment "A person founded a company." ;
+    rdfs:domain vckg:Person ;
+    rdfs:range  vckg:Company ;
+    owl:inverseOf vckg:foundedBy .
+
+vckg:partnerAt
+    a owl:ObjectProperty ;
+    rdfs:label "partner at" ;
+    rdfs:comment "A person is a general partner or managing partner at a VC firm." ;
+    rdfs:domain vckg:Investor ;
+    rdfs:range  vckg:VCFirm .
+
+vckg:worksAt
+    a owl:ObjectProperty ;
+    rdfs:label "works at" ;
+    rdfs:comment "A person is employed by or affiliated with an organisation." ;
+    rdfs:domain vckg:Person ;
+    rdfs:range  vckg:Organization .
+
+vckg:ceoOf
+    a owl:ObjectProperty ;
+    rdfs:label "CEO of" ;
+    rdfs:comment "A person serves as CEO of a company." ;
+    rdfs:subPropertyOf vckg:worksAt ;
+    rdfs:domain vckg:Person ;
+    rdfs:range  vckg:Company .
+
+# ── Sector & exit ─────────────────────────────────────────────────────────────
+
+vckg:operatesIn
+    a owl:ObjectProperty ;
+    rdfs:label "operates in" ;
+    rdfs:comment "A company operates in a particular industry sector." ;
+    rdfs:domain vckg:Company ;
+    rdfs:range  vckg:Sector .
+
+vckg:hadExit
+    a owl:ObjectProperty ;
+    rdfs:label "had exit" ;
+    rdfs:comment "A company underwent a liquidity exit event (IPO, acquisition, merger)." ;
+    rdfs:domain vckg:Company ;
+    rdfs:range  vckg:ExitEvent .
+
+vckg:acquiredBy
+    a owl:ObjectProperty ;
+    rdfs:label "acquired by" ;
+    rdfs:comment "A company was acquired by another organisation." ;
+    rdfs:subPropertyOf vckg:hadExit ;
+    rdfs:domain vckg:Company ;
+    rdfs:range  vckg:Organization .
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Datatype Properties
+# ═══════════════════════════════════════════════════════════════════════════════
+
+vckg:foundedYear
+    a owl:DatatypeProperty ;
+    rdfs:label "founded year" ;
+    rdfs:domain vckg:Organization ;
+    rdfs:range  xsd:gYear .
+
+vckg:headquarteredIn
+    a owl:DatatypeProperty ;
+    rdfs:label "headquartered in" ;
+    rdfs:domain vckg:Organization ;
+    rdfs:range  xsd:string .
+
+vckg:wikidataId
+    a owl:DatatypeProperty ;
+    rdfs:label "Wikidata ID" ;
+    rdfs:comment "The Wikidata QID for this entity (used for alignment)." ;
+    rdfs:range xsd:string .
+
+vckg:wikipediaUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Wikipedia URL" ;
+    rdfs:range xsd:anyURI .
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Named individuals — Funding round types (controlled vocabulary)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+vckg:SeedRound
+    a vckg:FundingRound ;
+    rdfs:label "Seed Round" .
+
+vckg:SeriesA
+    a vckg:FundingRound ;
+    rdfs:label "Series A" .
+
+vckg:SeriesB
+    a vckg:FundingRound ;
+    rdfs:label "Series B" .
+
+vckg:SeriesC
+    a vckg:FundingRound ;
+    rdfs:label "Series C" .
+
+vckg:SeriesD
+    a vckg:FundingRound ;
+    rdfs:label "Series D" .
+
+# ── Exit event types ───────────────────────────────────────────────────────────
+
+vckg:IPO
+    a vckg:ExitEvent ;
+    rdfs:label "IPO" ;
+    rdfs:comment "Initial Public Offering — company lists on a stock exchange." .
+
+vckg:Acquisition
+    a vckg:ExitEvent ;
+    rdfs:label "Acquisition" ;
+    rdfs:comment "Company is purchased by another organisation." .
+
+vckg:Merger
+    a vckg:ExitEvent ;
+    rdfs:label "Merger" ;
+    rdfs:comment "Company merges with another organisation." .

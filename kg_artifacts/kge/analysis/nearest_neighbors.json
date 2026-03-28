@@ -1,0 +1,436 @@
+{
+  "Sequoia Capital": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q123485668",
+      "label": "OpenAI Global",
+      "cosine_sim": 0.6031
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q52410688",
+      "label": "WhatsApp LLC",
+      "cosine_sim": 0.5986
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q15702456",
+      "label": "Redwood Robotics",
+      "cosine_sim": 0.5924
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q911595",
+      "label": "StumbleUpon",
+      "cosine_sim": 0.567
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q16987920",
+      "label": "Bloomberg Philanthropies",
+      "cosine_sim": 0.5667
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q30295146",
+      "label": "Early Warning Services",
+      "cosine_sim": 0.5606
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q5455414",
+      "label": "Fitbit",
+      "cosine_sim": 0.5583
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q64732680",
+      "label": "Novi Financial",
+      "cosine_sim": 0.5568
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q5462981",
+      "label": "Flutter",
+      "cosine_sim": 0.5481
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q110541711",
+      "label": "Facebook Overseas, Inc",
+      "cosine_sim": 0.5461
+    }
+  ],
+  "Andreessen Horowitz": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q5531757",
+      "label": "General Catalyst",
+      "cosine_sim": 0.5877
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q2616400",
+      "label": "Q2616400",
+      "cosine_sim": 0.5535
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q4048220",
+      "label": "Revolution Analytics",
+      "cosine_sim": 0.5327
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q2931769",
+      "label": "CNN Business",
+      "cosine_sim": 0.4817
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q17630723",
+      "label": "Jane Street Capital",
+      "cosine_sim": 0.4688
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q623459",
+      "label": "Silicon Graphics",
+      "cosine_sim": 0.4674
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q210057",
+      "label": "Netscape",
+      "cosine_sim": 0.4556
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q28874479",
+      "label": "The Boring Company",
+      "cosine_sim": 0.4408
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q2591662",
+      "label": "GV",
+      "cosine_sim": 0.4374
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q3054437",
+      "label": "Gawker Media",
+      "cosine_sim": 0.4333
+    }
+  ],
+  "Y Combinator": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q5531757",
+      "label": "General Catalyst",
+      "cosine_sim": 0.5756
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q4034010",
+      "label": "Andreessen Horowitz",
+      "cosine_sim": 0.5535
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q623459",
+      "label": "Silicon Graphics",
+      "cosine_sim": 0.5147
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q6675901",
+      "label": "Loopt",
+      "cosine_sim": 0.5109
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q2591662",
+      "label": "GV",
+      "cosine_sim": 0.509
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q2047336",
+      "label": "Palantir Technologies",
+      "cosine_sim": 0.5022
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q21708200",
+      "label": "OpenAI",
+      "cosine_sim": 0.4624
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q1439864",
+      "label": "Founders Fund",
+      "cosine_sim": 0.4575
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q17081187",
+      "label": "Terra Bella",
+      "cosine_sim": 0.4507
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q1096013",
+      "label": "Fairchild Semiconductor",
+      "cosine_sim": 0.4493
+    }
+  ],
+  "Peter Thiel": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q93014",
+      "label": "Max Levchin",
+      "cosine_sim": 0.701
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q6702205",
+      "label": "Luke Nosek",
+      "cosine_sim": 0.6511
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q6210988",
+      "label": "Joe Lonsdale",
+      "cosine_sim": 0.6212
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q16885691",
+      "label": "Brian Singerman",
+      "cosine_sim": 0.6024
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q5307199",
+      "label": "Drew Houston",
+      "cosine_sim": 0.6009
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q19560940",
+      "label": "Q19560940",
+      "cosine_sim": 0.5772
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q109363035",
+      "label": "Peggy Alford",
+      "cosine_sim": 0.5772
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q92764",
+      "label": "Sergey Brin",
+      "cosine_sim": 0.5664
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q211098",
+      "label": "Reid Hoffman",
+      "cosine_sim": 0.5623
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q19538950",
+      "label": "Nathan Blecharczyk",
+      "cosine_sim": 0.5611
+    }
+  ],
+  "Marc Andreessen": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q19560551",
+      "label": "Joe Gebbia",
+      "cosine_sim": 0.6522
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q1373397",
+      "label": "James H. Clark",
+      "cosine_sim": 0.6285
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q4934",
+      "label": "Larry Page",
+      "cosine_sim": 0.6113
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q162005",
+      "label": "Paul Allen",
+      "cosine_sim": 0.6108
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q16602077",
+      "label": "Tom Preston-Werner",
+      "cosine_sim": 0.5886
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q6848733",
+      "label": "Mike Schroepfer",
+      "cosine_sim": 0.5783
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q92764",
+      "label": "Sergey Brin",
+      "cosine_sim": 0.5759
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q2306779",
+      "label": "Peter Oppenheimer",
+      "cosine_sim": 0.5675
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q5606290",
+      "label": "Greg Stein",
+      "cosine_sim": 0.5655
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q92955",
+      "label": "Nat Friedman",
+      "cosine_sim": 0.5502
+    }
+  ],
+  "Sam Altman": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q136430980",
+      "label": "Ann Altman",
+      "cosine_sim": 0.6459
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q136430975",
+      "label": "Jack Altman",
+      "cosine_sim": 0.5682
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q27449525",
+      "label": "Caitlin Kalinowski",
+      "cosine_sim": 0.5486
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q6596009",
+      "label": "Noah Glass",
+      "cosine_sim": 0.5225
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q4261025",
+      "label": "Jessica Livingston",
+      "cosine_sim": 0.52
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q5606290",
+      "label": "Greg Stein",
+      "cosine_sim": 0.4918
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q23417057",
+      "label": "Garry Tan",
+      "cosine_sim": 0.4886
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q2306779",
+      "label": "Peter Oppenheimer",
+      "cosine_sim": 0.4827
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q4088422",
+      "label": "Trevor Blackwell",
+      "cosine_sim": 0.4778
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q16885691",
+      "label": "Brian Singerman",
+      "cosine_sim": 0.4746
+    }
+  ],
+  "Google": [
+    {
+      "rank": 1,
+      "uri": "http://www.wikidata.org/entity/Q20800404",
+      "label": "Alphabet Inc.",
+      "cosine_sim": 0.5886
+    },
+    {
+      "rank": 2,
+      "uri": "http://www.wikidata.org/entity/Q11463",
+      "label": "Adobe",
+      "cosine_sim": 0.5248
+    },
+    {
+      "rank": 3,
+      "uri": "http://www.wikidata.org/entity/Q2283",
+      "label": "Microsoft",
+      "cosine_sim": 0.5084
+    },
+    {
+      "rank": 4,
+      "uri": "http://www.wikidata.org/entity/Q312",
+      "label": "Apple Inc.",
+      "cosine_sim": 0.5036
+    },
+    {
+      "rank": 5,
+      "uri": "http://www.wikidata.org/entity/Q37093",
+      "label": "Yahoo",
+      "cosine_sim": 0.4626
+    },
+    {
+      "rank": 6,
+      "uri": "http://www.wikidata.org/entity/Q380",
+      "label": "Meta",
+      "cosine_sim": 0.453
+    },
+    {
+      "rank": 7,
+      "uri": "http://www.wikidata.org/entity/Q173395",
+      "label": "Cisco",
+      "cosine_sim": 0.4492
+    },
+    {
+      "rank": 8,
+      "uri": "http://www.wikidata.org/entity/Q56760250",
+      "label": "Sony Music",
+      "cosine_sim": 0.4486
+    },
+    {
+      "rank": 9,
+      "uri": "http://www.wikidata.org/entity/Q3884",
+      "label": "Amazon",
+      "cosine_sim": 0.4405
+    },
+    {
+      "rank": 10,
+      "uri": "http://www.wikidata.org/entity/Q58024",
+      "label": "eBay",
+      "cosine_sim": 0.402
+    }
+  ]
+}

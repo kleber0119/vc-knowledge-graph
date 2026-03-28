@@ -1,0 +1,38 @@
+[
+  {
+    "size_label": "20k",
+    "num_triples": 20000,
+    "num_train": 16779,
+    "num_entities": 9862,
+    "num_relations": 50,
+    "MRR": 0.0912,
+    "Hits@1": 0.051,
+    "Hits@3": 0.1008,
+    "Hits@10": 0.1745,
+    "train_time_s": 464.7
+  },
+  {
+    "size_label": "50k",
+    "num_triples": 50000,
+    "num_train": 40267,
+    "num_entities": 11491,
+    "num_relations": 51,
+    "MRR": 0.2658,
+    "Hits@1": 0.1935,
+    "Hits@3": 0.2968,
+    "Hits@10": 0.3993,
+    "train_time_s": 30662.3
+  },
+  {
+    "size_label": "full",
+    "num_triples": 52045,
+    "num_train": 41847,
+    "num_entities": 11496,
+    "num_relations": 51,
+    "MRR": 0.2768,
+    "Hits@1": 0.2077,
+    "Hits@3": 0.303,
+    "Hits@10": 0.4032,
+    "train_time_s": 6137.8
+  }
+]

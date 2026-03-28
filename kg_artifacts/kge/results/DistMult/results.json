@@ -1,0 +1,10 @@
+{
+  "model": "DistMult",
+  "MRR": 0.0623,
+  "Hits@1": 0.0457,
+  "Hits@3": 0.0677,
+  "Hits@10": 0.075,
+  "train_time_s": 2214.9,
+  "epochs": 300,
+  "embedding_dim": 256
+}
