@@ -40,7 +40,7 @@ No GPU required. All components run on CPU. Tested on Apple Silicon (M-series), 
 ### 1. Clone and create a virtual environment
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/kleber0119/vc-knowledge-graph.git
 cd vc-knowledge-graph
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
@@ -62,6 +62,23 @@ ollama pull gemma:2b      # default model (~1.7 GB)
 # or the lighter alternative:
 ollama pull qwen:0.5b     # (~400 MB)
 ```
+
+---
+
+## Quick Start — Launch the GUI instantly
+
+The pre-built knowledge graph artifacts are already included in the repository (`kg_artifacts/`), so you can run the RAG demo immediately after installation without rebuilding anything.
+
+```bash
+ollama serve                     # start Ollama (skip if already running)
+python src/rag/server.py         # start the FastAPI backend
+```
+
+Then open **[http://localhost:8000](http://localhost:8000)** in your browser.
+
+That's it. Use the **Ask** tab to query the knowledge graph in natural language, or the **Evaluation** tab to run the full benchmark.
+
+> To re-build the graph from scratch (crawl → NER → KG → KGE), follow the step-by-step instructions below.
 
 ---
 
