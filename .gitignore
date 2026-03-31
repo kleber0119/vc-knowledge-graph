@@ -37,7 +37,7 @@ Thumbs.db
 .claude/
 .agents/
 
-# Jupyter checkpoints
+# Jupyter checkpoints .
 .ipynb_checkpoints/
 
 # Reports (add final PDF manually)
