@@ -33,7 +33,7 @@ Thumbs.db
 .idea/
 *.swp
 
-# Claude Code & agent tooling
+# Agents
 .claude/
 .agents/
 
