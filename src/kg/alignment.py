@@ -92,18 +92,13 @@ TYPE_HINTS: dict[str, list[str]] = {
 # pairs    → (subj_qid, obj_qid) known aligned pairs for triple-based validation
 # chosen_pid → manually chosen Wikidata property after reviewing SPARQL results
 # relation → owl:equivalentProperty (identical) or skos:closeMatch (broader/narrower)
-#
-# Workflow: run the script → read the candidate output → encode your decision
-# in chosen_pid/relation. The script will warn if your choice wasn't found by
-# either search, flagging a potential misalignment.
 PREDICATES = [
     {
         "local":       VCKG.investedIn,
         "keyword":     "participant of",
         "pairs":       [("Q1852025", "Q63327")],  # Sequoia → Airbnb
         # No dedicated "investedIn" exists in Wikidata; P1344 (participant of) is
-        # the closest — a portfolio company "participated in" a round that Sequoia led.
-        # Semantics differ slightly so marked closeMatch, not equivalentProperty.
+        # the closest available match. Semantics differ slightly: closeMatch, not equivalentProperty.
         "chosen_pid":  "P1344",
         "relation":    SKOS.closeMatch,
     },
@@ -111,7 +106,7 @@ PREDICATES = [
         "local":       VCKG.foundedBy,
         "keyword":     "founded",
         "pairs":       [("Q210057", "Q62882")],   # Netscape → Marc Andreessen
-        # Triple validation confirms P112 (founded by) on Netscape → Andreessen.
+        # Triple validation confirms P112 (founded by) via Netscape → Andreessen.
         "chosen_pid":  "P112",
         "relation":    OWL.equivalentProperty,
     },
@@ -119,8 +114,8 @@ PREDICATES = [
         "local":       VCKG.partnerAt,
         "keyword":     "employer",
         "pairs":       [("Q62882", "Q4034010")],  # Marc Andreessen → a16z
-        # Triple validation finds P108 (employer). "partner" is narrower than
-        # general employment so marked closeMatch, not equivalentProperty.
+        # P108 (employer) via triple validation. "partner" is narrower than
+        # general employment, so marked closeMatch rather than equivalentProperty.
         "chosen_pid":  "P108",
         "relation":    SKOS.closeMatch,
     },
@@ -128,7 +123,7 @@ PREDICATES = [
         "local":       VCKG.ceoOf,
         "keyword":     "chief executive",
         "pairs":       [("Q36215", "Q355")],      # Mark Zuckerberg → Facebook
-        # Label search surfaces P169 (chief executive officer of).
+        # P169 (chief executive officer of) found via label search.
         "chosen_pid":  "P169",
         "relation":    OWL.equivalentProperty,
     },
@@ -136,7 +131,7 @@ PREDICATES = [
         "local":       VCKG.worksAt,
         "keyword":     "employer",
         "pairs":       [("Q317521", "Q2616400")], # Elon Musk → Y Combinator (no P108 link)
-        # Label search surfaces P108 (employer); semantically equivalent.
+        # P108 (employer) found via label search; semantically equivalent.
         "chosen_pid":  "P108",
         "relation":    OWL.equivalentProperty,
     },
@@ -144,7 +139,7 @@ PREDICATES = [
         "local":       VCKG.operatesIn,
         "keyword":     "industry",
         "pairs":       [("Q2283", "Q16319025")],  # Microsoft → fintech
-        # Label search surfaces P452 (industry); triple validation confirms it.
+        # P452 (industry) confirmed by both label search and triple validation.
         "chosen_pid":  "P452",
         "relation":    OWL.equivalentProperty,
     },
@@ -152,8 +147,8 @@ PREDICATES = [
         "local":       VCKG.hasFundingRound,
         "keyword":     "funded",
         "pairs":       [],
-        # No direct Wikidata equivalent. P8324 (funded by) is closest but
-        # direction differs (company→investor, not company→round type).
+        # No direct Wikidata equivalent. P8324 (funded by) is the closest match,
+        # though direction differs (company→investor vs. company→round type).
         "chosen_pid":  "P8324",
         "relation":    SKOS.closeMatch,
     },
@@ -161,7 +156,7 @@ PREDICATES = [
         "local":       VCKG.acquiredBy,
         "keyword":     "acquisition",
         "pairs":       [],
-        # P1642 (acquisition transaction) found by label search; best available match.
+        # P1642 (acquisition transaction) found via label search; best available match.
         "chosen_pid":  "P1642",
         "relation":    SKOS.closeMatch,
     },
@@ -169,8 +164,8 @@ PREDICATES = [
         "local":       VCKG.headquarteredIn,
         "keyword":     "headquarters",
         "pairs":       [],
-        # P159 (headquarters location) is the match, but our range is a string
-        # literal while P159 points to a QID — marked closeMatch.
+        # P159 (headquarters location) is the closest match, but our range is a
+        # string literal while P159 points to a QID — marked closeMatch.
         "chosen_pid":  "P159",
         "relation":    SKOS.closeMatch,
     },

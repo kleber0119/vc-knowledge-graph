@@ -43,20 +43,18 @@ SPLIT_SEED             = 42
 VALID_RATIO            = 0.10
 TEST_RATIO             = 0.10
 
-# Fix 1 — min degree threshold: drop any triple whose head or tail
+# Min degree threshold: drop any triple whose head or tail
 # appears fewer than this many times across the full dataset.
-# Kept at 2 to preserve enough triples (target: 50K–200K) while
-# still removing pure singletons that contribute no learning signal.
+# Value of 2 removes pure singletons while preserving sufficient triples.
 MIN_ENTITY_DEGREE      = 2
 
-# Fix 2 — relation cap: disabled. With only 3 relations exceeding 8K
-# triples (P1344, P106, P108), capping causes more damage than benefit
-# by dropping total triples below the 50K minimum requirement.
-# The imbalance is noted but acceptable given the dataset size.
+# Relation cap: disabled. With only 3 relations exceeding 8K triples
+# (P1344, P106, P108), capping reduces the dataset size more than it
+# helps. The imbalance is acceptable given the dataset size.
 MAX_TRIPLES_PER_RELATION = None   # None = no cap
 
 # ---------------------------------------------------------------------------
-# Fix 3a — Literal-heavy predicates (no structural KGE signal)
+# Literal-heavy predicates (no structural KGE signal — remove before training)
 # ---------------------------------------------------------------------------
 LITERAL_PREDICATES: set[str] = {
     # Dates / times
@@ -84,13 +82,12 @@ LITERAL_PREDICATES: set[str] = {
 }
 
 # ---------------------------------------------------------------------------
-# Fix 3b — Hub object filtering: rather than dropping entire predicates,
-# drop only the specific (predicate, object) pairs that create extreme hubs.
+# Hub object filtering: drop specific (predicate, object) pairs that create
+# extreme hubs rather than removing entire predicates.
 #
-# P21 (sex/gender) is dropped entirely — its only objects are male/female,
-# so it carries zero structural signal.
-# P31 (instance of) is kept but only for non-human objects — organisational
-# typing (company, university, VC firm…) is useful; "instance of human" is not.
+# P21 (sex/gender) is dropped entirely — only objects are male/female, zero signal.
+# P31 (instance of) is kept but filtered for non-human objects — organisational
+# typing (company, university, VC firm) is useful; "instance of human" is not.
 # ---------------------------------------------------------------------------
 HUB_PREDICATES: set[str] = {
     "http://www.wikidata.org/prop/direct/P21",   # sex or gender — always male/female
@@ -106,7 +103,7 @@ HUB_OBJECTS: dict[str, set[str]] = {
 }
 
 # ---------------------------------------------------------------------------
-# Fix 3c — Schema / meta relations: RDF alignment and ontology machinery,
+# Schema / meta relations: RDF alignment and ontology machinery,
 # not factual knowledge suitable for KGE training.
 # ---------------------------------------------------------------------------
 SCHEMA_PRED_FRAGMENTS: tuple[str, ...] = (
@@ -281,7 +278,7 @@ def main() -> None:
     print(f"After predicate filtering: {after_filter:,} triples")
 
     # -------------------------------------------------------------------
-    # Fix 1 — Prune low-degree entities (iterative: pruning changes degrees)
+    # Prune low-degree entities (iterative: pruning changes degrees)
     # -------------------------------------------------------------------
     def is_protected(pred: str) -> bool:
         return any(frag in pred for frag in PROTECTED_PRED_FRAGMENTS)
@@ -308,7 +305,7 @@ def main() -> None:
           f"{len(degree_final):,} entities")
 
     # -------------------------------------------------------------------
-    # Fix 2 — Cap over-represented relations (skipped if None)
+    # Cap over-represented relations (skipped if None)
     # -------------------------------------------------------------------
     rel_caps: dict[str, int] = {}
     if MAX_TRIPLES_PER_RELATION is not None:
@@ -416,14 +413,14 @@ def main() -> None:
         f"  Unique relations           : {len(relation2id):>10,}",
         f"  Median entity degree       : {degrees[n_ents//2]:>10}",
         f"  Avg entity degree          : {sum(degrees)/n_ents:>10.1f}",
-        f"  Singleton entities         : {singletons_pct:>9.1f}%  (target: <5%)",
+        f"  Singleton entities         : {singletons_pct:>9.1f}%",
         "",
         "-- Split (80/10/10) --",
         f"  train.txt                  : {len(train_triples):>10,}  ({len(train_triples)/clean_count*100:.1f}%)",
         f"  valid.txt                  : {len(valid_triples):>10,}  ({len(valid_triples)/clean_count*100:.1f}%)",
         f"  test.txt                   : {len(test_triples):>10,}  ({len(test_triples)/clean_count*100:.1f}%)",
-        f"  OOV triples in valid       : {valid_oov:>10,}  (must be 0)",
-        f"  OOV triples in test        : {test_oov:>10,}  (must be 0)",
+        f"  OOV triples in valid       : {valid_oov:>10,}",
+        f"  OOV triples in test        : {test_oov:>10,}",
         f"  Random seed                : {SPLIT_SEED}",
         "",
         "-- Output files --",

@@ -46,8 +46,7 @@ print(f"Using device: {DEVICE}")
 # Each entry: model_name -> pykeen kwargs forwarded to pipeline()
 # ---------------------------------------------------------------------------
 MODEL_CONFIGS: dict[str, dict] = {
-    # TransE — translational model; needs hard negatives via self-adversarial
-    # sampling so loss doesn't collapse to 0 after a few epochs.
+    # TransE — translational model; self-adversarial sampling provides hard negatives.
     "TransE": {
         "model": "TransE",
         "model_kwargs": {"embedding_dim": 256},
@@ -60,8 +59,7 @@ MODEL_CONFIGS: dict[str, dict] = {
         "loss": "NSSALoss",
         "loss_kwargs": {"margin": 9.0, "adversarial_temperature": 1.0},
     },
-    # DistMult — bilinear model; SoftplusLoss with bernoulli sampler gives
-    # meaningful gradients without the CPU cost of full 1-N (lcwa) scoring.
+    # DistMult — bilinear model; SoftplusLoss with bernoulli sampler.
     "DistMult": {
         "model": "DistMult",
         "model_kwargs": {"embedding_dim": 256},
@@ -251,7 +249,7 @@ def main() -> None:
 
     summaries: list[dict] = []
 
-    skip_models = {"TransE", "DistMult", "ComplEx"}   # models with good results to preserve
+    skip_models = {"TransE", "DistMult", "ComplEx"}   # skip if results already exist
     for name, cfg in MODEL_CONFIGS.items():
         results_path = RESULTS_DIR / name / "results.json"
         if name in skip_models and results_path.exists():

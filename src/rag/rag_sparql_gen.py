@@ -86,7 +86,7 @@ def load_graph() -> Graph:
     the actual VC firms, companies, and persons.
     """
     g = Graph()
-    # Bind the VCKG namespace so SPARQL PREFIX blocks are clean
+    # Bind the VCKG namespace
     g.bind("vckg", "http://vckg.org/ontology#")
     g.bind("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
     g.bind("owl",  "http://www.w3.org/2002/07/owl#")
@@ -110,7 +110,7 @@ def _run(g: Graph, sparql: str) -> list:
 
 
 def get_prefix_block(g: Graph) -> str:
-    # Only expose the prefixes a SPARQL writer actually needs for this graph
+    # Only expose the prefixes needed for queries against this graph
     keep = {
         "vckg": "http://vckg.org/ontology#",
         "rdf":  "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -146,7 +146,7 @@ def list_distinct_predicates(g: Graph, limit: int = MAX_PREDICATES) -> List[str]
 def list_distinct_classes(g: Graph, limit: int = MAX_CLASSES) -> List[str]:
     rows = _run(g, f"SELECT DISTINCT ?cls WHERE {{ ?s a ?cls }} LIMIT {limit}")
     classes = [str(r.cls) for r in rows]
-    # Show only vckg: classes — these are what the LLM needs to write queries against
+    # Show only vckg: classes — the relevant namespace for query generation
     vckg = [c for c in classes if c.startswith(_VCKG_NS)]
     return vckg[:limit]
 

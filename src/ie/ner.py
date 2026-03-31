@@ -6,13 +6,10 @@ We use two layers:
   1. spaCy's pretrained en_core_web_lg model (handles ORG, PERSON, MONEY, DATE, GPE)
   2. Custom EntityRuler patterns for VC-specific vocabulary
 
-Graded under "Cleaning + NER" (1 pt) and "Ambiguity & reflection" (1 pt).
-
-IMPORTANT — 3 Ambiguity Cases (required for the report):
+Three documented ambiguity cases illustrate NER challenges:
   1. "Apple" → fruit vs. Apple Inc. (ORG) — context-dependent
   2. "Amazon" → river/ecosystem vs. Amazon.com (ORG)
   3. "Mercury" → planet/element vs. Mercury (startup) vs. Freddie Mercury (PERSON)
-  These show why NER is hard and why context matters.
 """
 
 import json
@@ -36,8 +33,8 @@ MODEL_NAME = "en_core_web_lg"
 KEEP_LABELS = {"ORG", "PERSON", "GPE", "PRODUCT"}
 
 # ── Custom patterns for VC domain ──────────────────────────────────────────────
-# spaCy's EntityRuler lets us add domain-specific rules that fire BEFORE the ML model.
-# This ensures well-known VC firms and investors are always correctly tagged.
+# Custom EntityRuler patterns for domain-specific terms fire BEFORE the ML model,
+# ensuring well-known VC firms and investors are always correctly tagged.
 VC_PATTERNS = [
     # VC Firms
     {"label": "VC_FIRM", "pattern": "Sequoia Capital"},
@@ -371,8 +368,8 @@ def run_ner(cleaned_file: Path, output_dir: Path) -> dict:
     for label, counter in sorted(filtered_counts.items()):
         logger.info(f"  {label}: {counter.most_common(5)}")
 
-    # ── Print ambiguity examples (required for report!) ───────────────────────
-    logger.info("\n=== Ambiguity Cases (for report) ===")
+    # ── Print ambiguity examples ───────────────────────────────────────────────
+    logger.info("\n=== Ambiguity Cases ===")
     ambiguity_cases = [
         {
             "entity": "Apple",

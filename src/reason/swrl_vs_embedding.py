@@ -67,8 +67,8 @@ def run_swrl_reasoning() -> list[tuple[str, str]]:
     print("PART 1 — SWRL Rule-Based Reasoning (OWLReady2)")
     print("=" * 65)
 
-    # OWLReady2 requires RDF/XML — merge ontology + instance graph into one file.
-    # Strip owl:imports to prevent OWLReady2 from trying to download remote URIs.
+    # OWLReady2 requires RDF/XML — merge ontology + instance graph into one file,
+    # stripping owl:imports to prevent remote URI fetches.
     import tempfile
     from rdflib import Graph as RDFGraph, OWL
 

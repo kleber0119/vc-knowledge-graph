@@ -46,7 +46,6 @@ LABEL_TO_CLASS = {
 
 # ── Label overrides ─────────────────────────────────────────────────────────────
 # Entities that spaCy mislabels. Maps entity text (lowercase) → correct NER label.
-# Add any entity here that shows up in the wrong class in the graph.
 LABEL_OVERRIDES: dict[str, str] = {
     "fintech":              "SECTOR",
     "saas":                 "SECTOR",
@@ -361,7 +360,7 @@ def extract_relation_triples(
 
 
 def print_stats(g: Graph) -> None:
-    """Print KB statistics for the report."""
+    """Print KB statistics."""
     logger.info("\n=== KB Statistics ===")
     logger.info(f"Total triples      : {len(g):,}")
 

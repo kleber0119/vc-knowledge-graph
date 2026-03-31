@@ -8,7 +8,6 @@ After crawling, raw text is messy:
   - Unicode noise
 
 This module cleans raw documents so NER runs on clean input.
-Graded under "Cleaning + NER" (1 pt).
 """
 
 import json
@@ -58,8 +57,7 @@ def remove_noise(text: str) -> str:
 def split_sentences(text: str) -> list[str]:
     """
     Simple sentence splitter on period/exclamation/question mark.
-    For production you'd use spaCy's sentencizer, but this is fast and good enough
-    for our cleaning pass.
+    Fast regex-based approach suitable for this cleaning pass.
     """
     # Split on sentence-ending punctuation followed by a space and capital letter
     sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z])", text)
@@ -112,7 +110,7 @@ def clean_document(raw_text: str) -> dict:
 def clean_corpus(raw_file: Path, output_dir: Path) -> list[dict]:
     """
     Read raw_documents.jsonl, clean each document, and save cleaned_documents.jsonl.
-    Also prints cleaning statistics (useful for the report).
+    Also prints cleaning statistics.
     """
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -155,7 +153,7 @@ def clean_corpus(raw_file: Path, output_dir: Path) -> list[dict]:
         for doc in cleaned_docs:
             f.write(json.dumps(doc, ensure_ascii=False) + "\n")
 
-    # ── Print cleaning statistics (include these in your report!) ─────────────
+    # ── Print cleaning statistics ──────────────────────────────────────────────
     logger.info("\n=== Cleaning Statistics ===")
     logger.info(f"Documents processed : {len(cleaned_docs)}")
     logger.info(f"Total raw chars     : {total_raw_chars:,}")

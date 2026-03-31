@@ -1,7 +1,7 @@
 """
 Crawler for the VC/Silicon Valley Knowledge Graph project.
 
-Design principles (graded under "Crawler quality + ethics"):
+Design principles:
 - Identifies itself with a descriptive User-Agent
 - Checks robots.txt before crawling each domain
 - Respects a crawl delay between requests
@@ -9,7 +9,7 @@ Design principles (graded under "Crawler quality + ethics"):
 - Saves raw text alongside metadata for reproducibility
 
 Seed URLs: 8 focused Wikipedia pages → targets 50–200 unique entities.
-(KGE expansion to 20k–50k triples is handled in a later step via SPARQL.)
+(KGE expansion to 20k–50k triples is handled via SPARQL in a later step.)
 """
 
 import json
@@ -50,7 +50,7 @@ SEED_URLS = [
 class RobotChecker:
     """
     Checks robots.txt per domain and caches the result.
-    Required for ethical crawling — we only visit pages the site allows bots to see.
+    Checks robots.txt per domain before making any requests.
     """
 
     def __init__(self):
@@ -73,9 +73,7 @@ class RobotChecker:
 def extract_text(html: str, url: str) -> str:
     """
     Extract main article text using trafilatura.
-    trafilatura is purpose-built for this: it removes boilerplate (navbars,
-    ads, footers) and returns clean prose — better than manual BeautifulSoup
-    parsing, especially for Wikipedia and news articles.
+    Removes boilerplate (navbars, ads, footers) and returns clean prose.
     """
     text = trafilatura.extract(
         html,

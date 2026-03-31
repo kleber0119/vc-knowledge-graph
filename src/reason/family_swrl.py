@@ -8,8 +8,8 @@ Infers that any person older than 60 is an instance of the class `oldPerson`.
 
 OWLReady2 is used as the reasoning engine to load the ontology and manage
 class/individual assertions. SWRL built-ins (swrlb:greaterThan) require
-Pellet/Java for automated execution; the rule is applied manually in Python
-when Pellet is unavailable — the semantic result is identical.
+Pellet/Java for automated execution; the equivalent logic is applied
+directly in Python when Pellet is unavailable.
 
 Usage:
     python src/reason/family_swrl.py
